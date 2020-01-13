@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1525271182726.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "9|28|15|0|\n16|17|34|0|\n35|29|41|11|\n42|26|49|0|\n43|24|48|0|\n50|17|55|0|\n56|45|59|0|\n60|37|82|0|\n61|41|81|0|\n74|23|78|2|\n83|19|96|0|\n84|32|95|0|\n97|23|115|0|\n98|24|114|0|\n116|60|122|0|\n117|25|121|0|\n123|23|133|0|\n124|46|132|0|\n147|24|161|0|\n148|51|160|0|\n162|22|174|0|\n163|38|173|0|\n175|18|186|0|\n187|19|224|0|\n",
+    "hash" : "1710581296",
+    "id" : "D6AEB1A4",
+    "lastKnownWriteTime" : 1525358340,
+    "last_content_update" : 1525857869888,
+    "path" : "~/Google Drive/DATA SCIENCE/Rstudio_scripts/LTMedia/Global.R",
+    "project_path" : "Global.R",
+    "properties" : {
+        "cursorPosition" : "135,20",
+        "scrollLine" : "0"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

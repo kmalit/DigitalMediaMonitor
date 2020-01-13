@@ -1,0 +1,25 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1578919169650.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "4550B9AF",
+    "lastKnownWriteTime" : 1578918222,
+    "last_content_update" : 1578918222,
+    "path" : "C:/Users/KMalit/Desktop/KeldineData/PersonalWork/LTMedia/LTMediaShiny/keys.json",
+    "project_path" : "keys.json",
+    "properties" : {
+        "cursorPosition" : "4,60",
+        "scrollLine" : "0"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 5,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "json"
+}

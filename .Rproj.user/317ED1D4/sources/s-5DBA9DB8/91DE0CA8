@@ -1,0 +1,25 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1578907850142.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "91DE0CA8",
+    "lastKnownWriteTime" : 1578913188,
+    "last_content_update" : 1578913188033,
+    "path" : "C:/Users/KMalit/Desktop/KeldineData/PersonalWork/LTMedia/LTMediaShiny/UI.R",
+    "project_path" : "UI.R",
+    "properties" : {
+        "cursorPosition" : "99,24",
+        "scrollLine" : "0"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

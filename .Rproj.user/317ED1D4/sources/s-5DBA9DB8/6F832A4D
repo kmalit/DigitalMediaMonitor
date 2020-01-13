@@ -1,0 +1,25 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1578907883977.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "6F832A4D",
+    "lastKnownWriteTime" : 1578914749,
+    "last_content_update" : 1578914749843,
+    "path" : "C:/Users/KMalit/Desktop/KeldineData/PersonalWork/LTMedia/LTMediaShiny/server.R",
+    "project_path" : "server.R",
+    "properties" : {
+        "cursorPosition" : "93,8",
+        "scrollLine" : "0"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

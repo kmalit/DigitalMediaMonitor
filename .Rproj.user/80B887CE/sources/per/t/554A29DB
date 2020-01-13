@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1525778414216.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "6|45|16|0|\n17|35|60|0|\n61|50|142|0|\n77|17|84|0|\n",
+    "hash" : "1916296076",
+    "id" : "554A29DB",
+    "lastKnownWriteTime" : 1525946483,
+    "last_content_update" : 1525946483269,
+    "path" : "~/Google Drive/DATA SCIENCE/Rstudio_scripts/Random/Networks Assignment.R",
+    "project_path" : null,
+    "properties" : {
+        "cursorPosition" : "226,0",
+        "scrollLine" : "0",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

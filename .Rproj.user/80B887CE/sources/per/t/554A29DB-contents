@@ -1,0 +1,226 @@
+rm(list = ls())
+## LOADING THE REQUIRED LIBRARIES
+library(igraph)
+library(ggplot2)
+library(dplyr)
+
+## QUESTION 2: GRAPHING ZACHARY FAMOUS GRAPH ##############################################################################################
+g<- graph.famous('zachary')
+g
+summary(g)
+plot(g)
+E(g)
+V(g)
+transitivity(g)
+degree(g)
+betweenness(g)
+
+## QUESTION 3: ERDOS RENYI NETWORK ##########################################################################################
+g1 <- erdos.renyi.game(1000,0.01)
+x <- degree(g1)
+
+factor(x)
+w <- table(x)
+w <- as.data.frame(w)
+w
+library(magrittr)
+unclass(w$x) %>% as.numeric 
+
+ggplot( data = w, aes(x = x, y = Freq))+
+  geom_bar(stat = "identity", colour="black", fill="steelblue")+
+  theme_bw() + 
+  theme(axis.text.x = element_text(angle = 90, hjust = 1),legend.position="bottom",panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),panel.border = element_blank(),panel.background = element_blank()) +
+  labs(x="Degree", y="Count", title=paste0("Erdos- Renyi 1000, 0.01 Degree Distribution:"))
+
+m = sum(w$x * w$Freq) / sum(w$Freq)
+m
+
+v = sum(w$x-m)**2 / (sum(w$Freq)-1)
+v = sqrt(v)
+
+
+is_connected(g1)
+
+# 3.3 - ER network, N = 1000, use simulation-based approach to create a plot 
+# that shows the size of the largest component as a function of p
+
+p <- seq(from = 0.0001, to = 0.01, by = 0.0001)
+
+giantcomponent_vect <- vector()
+p_val <- vector()
+
+for (v in p){
+  er_test <- erdos.renyi.game(1000, v)
+  giant_component <- max(components(er_test)$csize)
+  giantcomponent_vect <- c(giantcomponent_vect, giant_component)
+  p_val <- c(p_val, v)
+}
+
+plot( p_val,giantcomponent_vect)
+
+## QUESTION 4: CORRELATION OF CENTRALITY MEASURES ######################################################################################
+
+d <- read.graph(file="http://users.dimi.uniud.it/~massimo.franceschet/teaching/datascience/network/R/dolphin.gml",format="gml")
+plot(d)
+vcount(d)
+ecount(d)
+edge_density(d)
+graph.density(d,loops = F)
+
+
+
+# Erdos - Renyi graph
+n <-vcount(d)
+p <- edge_density(d)
+corr_list <- list()
+
+for(i in 1:1000){ 
+  
+  g <- erdos.renyi.game(n,p,type = 'gnp')
+  
+  df <- cbind (degree(g),betweenness(g),closeness(g), eigen_centrality(g)$vector,page.rank(g, algo = 'prpack', directed = F)$vector)
+  cor <- cor(df, method = 'spearman')
+  corr_list[[i]] <- cor
+}
+
+mean_matrix <- apply(simplify2array(corr_list), 1:2, mean)
+mean_matrix <- round(mean_matrix,2)
+
+sd_matrix <- apply(simplify2array(corr_list), 1:2, sd)
+sd_matrix <- round(sd_matrix,2)
+
+
+corr_matrix <- matrix(paste(mean_matrix, " (", sd_matrix, ")", sep = ""), nrow = 5, ncol = 5)
+names <- c('Degree', 'Betweeness', 'Closeness', 'Eigen_cen', 'Page_rank')
+rownames(corr_matrix) <- names
+colnames(corr_matrix) <- names
+
+# Barabasi - Albert graph
+ba_corr_list <- list()
+for(i in 1:1000){ 
+
+  ba_g <- barabasi.game(n, m = 3 ,directed = F,algorithm = 'psumtree')
+  ba_df <- cbind (degree(ba_g),betweenness(ba_g),closeness(ba_g), eigen_centrality(ba_g)$vector,page.rank(ba_g,algo = 'prpack',directed = F)$vector)
+  ba_cor <- cor(ba_df, method = 'spearman')
+  ba_corr_list[[i]] <- ba_cor
+}
+
+ba_mean_matrix <- apply(simplify2array(ba_corr_list), 1:2, mean)
+ba_mean_matrix <- round(ba_mean_matrix,2)
+
+ba_sd_matrix <- apply(simplify2array(ba_corr_list), 1:2, sd)
+ba_sd_matrix <- round(ba_sd_matrix,2)
+
+ba_corr_matrix <- matrix(paste(ba_mean_matrix, " (", ba_sd_matrix, ")", sep = ""), nrow = 5, ncol = 5)
+rownames(ba_corr_matrix) <- names
+colnames(ba_corr_matrix) <- names
+
+
+
+# Dolphine graph
+
+do_corr_list <- list()
+
+for(i in 1:1000){ 
+  
+  do_g <-  read.graph(file="http://users.dimi.uniud.it/~massimo.franceschet/teaching/datascience/network/R/dolphin.gml",format="gml")
+  do_df <- cbind (degree(do_g),betweenness(do_g),closeness(do_g), eigen_centrality(do_g)$vector,page.rank(do_g,algo = 'prpack',directed = F)$vector)
+  do_cor <- cor(do_df, method = 'spearman')
+  do_corr_list[[i]] <- do_cor
+}
+
+do_mean_matrix <- apply(simplify2array(do_corr_list), 1:2, mean)
+do_mean_matrix <- round(do_mean_matrix,2)
+
+do_sd_matrix <- apply(simplify2array(do_corr_list), 1:2, sd)
+do_sd_matrix <- round(do_sd_matrix,2)
+
+do_corr_matrix <- matrix(paste(do_mean_matrix, " (", do_sd_matrix, ")", sep = ""), nrow = 5, ncol = 5)
+rownames(do_corr_matrix) <- names
+colnames(do_corr_matrix) <- names
+
+
+## QUESTION 5 ##########################################################################################################################
+
+ba5_network <- barabasi.game(100, m = 7 ,directed = F,algorithm = 'psumtree')
+Degreeees1 <- degree(ba5_network)
+DG1 <- degree_distribution(ba5_network)
+
+as.numeric(factor(Degreeees1))
+w <- table(Degreeees1)
+w <- as.data.frame(w)
+w
+library(magrittr)
+library(scales)
+unclass(w$Degreeees1) %>% as.numeric 
+w$Degreeees1 <- as.numeric(w$Degreeees1)
+
+ggplot( data = w, aes(x = Degreeees1, y = Freq))+
+  geom_point(color="#56B4E9",stat = "identity")+
+  theme_bw() + 
+  theme(axis.text.x = element_text(angle = 90, hjust = 1,size = 25),axis.text.y = element_text(size = 25),
+        panel.grid.major = element_blank(),panel.grid.minor = element_blank(),panel.background = element_blank()) +
+  labs(x="Degree", y="Count", title=paste0("BA(100,7, undirected) Network"))
+
+ggplot( data = w, aes(x = Degreeees1, y = Freq))+
+  
+  scale_x_log10(limits = c(1, NA),labels = trans_format("log10", math_format(10^.x)),breaks=trans_breaks("log10", function(x) 10^x, n=6)) +
+  scale_y_log10(limits = c(1, NA),labels = trans_format("log10", math_format(10^.x)),breaks=trans_breaks("log10", function(x) 10^x, n=6)) +
+  
+  geom_point(color="blue",stat = "identity")+ theme_bw() + 
+  theme(axis.text.x = element_text(angle = 90, hjust = 1,size = 25),axis.text.y = element_text(size = 25),
+        panel.grid.major = element_blank(),panel.grid.minor = element_blank(),panel.background = element_blank()) +
+  
+  labs(x='Log Scaled - Degree', y='Log scaled - Count', title=paste0("Log - Log plot - BA(100,7, undirected) Network"))
+ 
+
+HE_phys_collab_network <- read.graph(file="C:/Users/vesse/Downloads/out.ca-cit-HepPh")
+Degreeees2 <- degree(HE_phys_collab_network)
+DG <- degree.distribution(HE_phys_collab_network)
+as.numeric(factor(Degreeees2))
+w <- table(Degreeees2)
+w <- as.data.frame(w)
+w$Degreeees2 <- as.numeric(w$Degreeees2)
+
+
+
+
+ggplot( data = w, aes(x = Degreeees2, y = Freq))+
+  geom_point(color="blue",stat = "identity")+
+  theme_bw() + 
+  theme(axis.text.x = element_text(angle = 90, hjust = 1,size = 25),axis.text.y = element_text(size = 25),
+        panel.grid.major = element_blank(),panel.grid.minor = element_blank(),panel.background = element_blank()) +
+  labs(x="Degree", y="Count", title=paste0("Plot - High Energy Collaboration Network"))
+
+ggplot( data = w, aes(x = Degreeees2, y = Freq))+
+  
+  scale_x_log10(limits = c(1, NA),labels = trans_format("log10", math_format(10^.x)),breaks=trans_breaks("log10", function(x) 10^x, n=6)) +
+  scale_y_log10(limits = c(1, NA),labels = trans_format("log10", math_format(10^.x)),breaks=trans_breaks("log10", function(x) 10^x, n=6)) +
+  
+  geom_point(color="blue",stat = "identity")+ theme_bw() + 
+  theme(axis.text.x = element_text(angle = 90, hjust = 1,size = 25),axis.text.y = element_text(size = 25),
+        panel.grid.major = element_blank(),panel.grid.minor = element_blank(),panel.background = element_blank()) +
+  
+  labs(x='Log Scaled - Degree', y='Log scaled - Count', title=paste0("Log - Log plot -High Energy Collaboration Network"))
+
+
+#fitting powerlaw
+library(poweRlaw)
+
+fit_power_law_fn <- function (grph) {
+  degrees <- degree(grph)
+  degrees <- degrees[degrees != 0]
+  
+  pl <- displ$new(degrees)
+  bs_p = bootstrap_p(pl)
+  bs_p$p
+  
+}
+
+fit_power_law_fn(ba5_network)
+
+fit_power_law_fn(HE_phys_collab_network)
+
+fit_power_law(Degreeees2, xmin = NULL, start = 2, force.continuous = FALSE,
+              implementation = c("plfit","R.mle"))
